@@ -18,7 +18,7 @@ df_inter = pd.DataFrame(lines)
 df_inter.columns = ['json_element']
 df_inter['json_element'].apply(json.loads)
 df_final = pd.json_normalize(df_inter['json_element'].apply(json.loads))
-df_final.to_csv('ufcFights.csv',index=False)
+df_final.to_csv('ufcFightStats.csv',index=False)
 
 ####### Let's take a different approach
 
@@ -32,8 +32,8 @@ terms = {'fighter_id','fighter_name','fighter_status','kd','n_pass',
          'clinch_att','clinch_def','clinch_land','ground_abs','ground_att',
          'ground_def','ground_land'}
 
-df = pd.read_csv('ufcFights.csv')
+df = pd.read_csv('ufcFightStats.csv')
 df = df.dropna() #Let's get rid of the fights with no stats
 df = format_dataframe(df,terms)
 df = df.apply(lambda x: x.explode() if x.name in terms else x)
-df.to_csv('ufcFights_formatted.csv', index=False)
+df.to_csv('ufcFightStats_formatted.csv', index=False)
